@@ -6,7 +6,6 @@ const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
-const crashTest = require('./routes/crashTest');
 const router = require('./routes/index');
 const validationErrors = require('./utils/validError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');

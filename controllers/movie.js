@@ -4,7 +4,7 @@ const ForbiddenError = require('../errors/ForbiddenError');
 
 const getMovies = async (req, res, next) => {
   try {
-    const movie = await Movie.find({owner: req.user.id});
+    const movie = await Movie.find({ owner: req.user.id });
     res.send(movie);
   } catch (err) {
     next(err);
@@ -25,7 +25,8 @@ const createMovies = async (req, res, next) => {
       thumbnail,
       movieId,
       nameRU,
-      nameEN, } = req.body;
+      nameEN,
+    } = req.body;
     const movie = await Movie.create(
       {
         country,
@@ -40,7 +41,8 @@ const createMovies = async (req, res, next) => {
         movieId,
         nameRU,
         nameEN,
-      });
+      },
+    );
     if (!movie) {
       throw new NotFoundError('Фильм не создан');
     } else {

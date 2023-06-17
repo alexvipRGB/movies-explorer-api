@@ -156,7 +156,6 @@ const userUpdateValidation = {
 
 module.exports = {
   movieValidation,
-  userValidation,
   movieValidationId,
   userUpdateValidation,
   userLoginValid,
