@@ -4,8 +4,8 @@ const ForbiddenError = require('../errors/ForbiddenError');
 
 const getMovies = async (req, res, next) => {
   try {
-    const movie = await Movie.find({ owner: req.user.id });
-    res.send(movie);
+    const movies = await Movie.find({ owner: req.user._id }).populate(['owner']);
+    res.send(movies);
   } catch (err) {
     next(err);
   }
@@ -13,7 +13,6 @@ const getMovies = async (req, res, next) => {
 
 const createMovies = async (req, res, next) => {
   try {
-    const owner = req.user._id;
     const {
       country,
       director,
@@ -27,22 +26,20 @@ const createMovies = async (req, res, next) => {
       nameRU,
       nameEN,
     } = req.body;
-    const movie = await Movie.create(
-      {
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image,
-        trailerLink,
-        thumbnail,
-        owner,
-        movieId,
-        nameRU,
-        nameEN,
-      },
-    );
+    const movie = await Movie.create({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      thumbnail,
+      owner: req.user._id,
+      movieId,
+      nameRU,
+      nameEN,
+    });
     if (!movie) {
       throw new NotFoundError('Фильм не создан');
     } else {
@@ -64,11 +61,14 @@ const deleteMovies = async (req, res, next) => {
       throw new NotFoundError('Фильм не найден');
     }
 
-    if (movie.owner.toString() !== userId) {
+    if (movie.owner.valueOf() !== userId) {
       throw new ForbiddenError('У вас нет прав на удаление этого фильма');
     }
 
-    await movie.deleteOne();
+    const isRemoved = await Movie.findByIdAndRemove(movieId);
+    if (!isRemoved) {
+      throw new NotFoundError('Передан неверный айди фильма, поэтому не получилось удалить.');
+    }
 
     res.send({ message: 'Фильм успешно удален' });
   } catch (err) {

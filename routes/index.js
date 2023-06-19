@@ -3,10 +3,10 @@ const NotFoundError = require('../errors/NotFoundError');
 
 const router = express.Router();
 const userRouter = require('./users');
-const cardRouter = require('./movie');
+const movieRouter = require('./movie');
 
 router.use(userRouter);
-router.use(cardRouter);
+router.use(movieRouter);
 router.use(() => {
   throw new NotFoundError('Маршрут не найден');
 });

@@ -22,6 +22,6 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Поле "password" должно быть заполнено'],
     select: false,
   },
-}, { versionKey: false, toJSON: { useProjection: true } });
+}, { versionKey: false });
 
 module.exports = mongoose.model('User', userSchema);

@@ -3,28 +3,6 @@ const validUrl = require('valid-url');
 
 const movieValidation = {
   [Segments.BODY]: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30)
-      .messages({
-        'string.base': 'Поле "name" должно быть строкой',
-        'string.empty': 'Поле "name" должно быть заполнено',
-        'string.min': 'Минимальная длина поля "name" - 2',
-        'string.max': 'Максимальная длина поля "name" - 30',
-        'any.required': 'Поле "name" должно быть заполнено',
-      }),
-    link: Joi.string()
-      .custom((value, helpers) => {
-        if (!validUrl.isWebUri(value)) {
-          return helpers.error('any.invalid');
-        }
-        return value;
-      })
-      .messages({
-        'string.base': 'Поле "link" должно быть строкой',
-        'string.empty': 'Поле "link" должно быть заполнено',
-        'any.required': 'Поле "link" должно быть заполнено',
-        'string.uri': 'Поле "link" должно быть допустимым URL-адресом',
-      })
-      .required(),
     country: Joi.string().required(),
     director: Joi.string().required(),
     duration: Joi.number().required(),
@@ -58,8 +36,6 @@ const movieValidation = {
         'string.uri': 'Поле "trailerLink" должно быть допустимым URL-адресом',
       })
       .required(),
-    nameRU: Joi.string().required(),
-    nameEN: Joi.string().required(),
     thumbnail: Joi.string()
       .custom((value, helpers) => {
         if (!validUrl.isWebUri(value)) {
@@ -75,6 +51,8 @@ const movieValidation = {
       })
       .required(),
     movieId: Joi.number().required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
   }),
 };
 
@@ -86,7 +64,8 @@ const movieValidationId = {
       'string.length': 'Поле "movieId" должно быть длиной 24 символа',
       'string.hex':
         'Поле "movieId" должно содержать только шестнадцатеричные символы',
-    }),
+    })
+      .required(),
   }),
 };
 
@@ -98,10 +77,10 @@ const userLoginValid = {
       'string.email': 'Некорректный Email',
       'any.required': 'Поле "email" должно быть заполнено',
     }),
-    password: Joi.string().min(8).required().messages({
+    password: Joi.string().min(6).required().messages({
       'string.base': 'Поле "password" должно быть строкой',
       'string.empty': 'Поле "password" должно быть заполнено',
-      'string.min': 'Минимальная длина поля "password" - 8',
+      'string.min': 'Минимальная длина поля "password" - 6',
       'any.required': 'Поле "password" должно быть заполнено',
     }),
   }),
@@ -135,7 +114,7 @@ const userRegValid = {
 
 const userUpdateValidation = {
   [Segments.BODY]: Joi.object({
-    email: Joi.string().pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)
+    email: Joi.string().email().required()
       .messages({
         'string.base': 'Поле "name" должно быть строкой',
         'string.empty': 'Поле "name" должно быть заполнено',
