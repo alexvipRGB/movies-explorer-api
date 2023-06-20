@@ -21,7 +21,8 @@ router.get('/users/me', auth, getCurrentUser);
 
 router.patch('/users/me', auth, celebrate(userUpdateValidation), updateUser);
 
-router.post('/signout', auth, logout);
+router.use(auth);
+router.post('/signout', logout);
 
 router.use(errors());
 
