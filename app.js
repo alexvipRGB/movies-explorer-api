@@ -8,15 +8,16 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const router = require('./routes/index');
 const validationErrors = require('./utils/validError');
+const { APP_PORT, MONGO_DB, MONGO_OPTIONS } = require('./utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+mongoose.connect(MONGO_DB, MONGO_OPTIONS);
 
 app.use(
   cors({
@@ -47,6 +48,4 @@ app.use(errorLogger);
 app.use(validationErrors);
 app.use(errors());
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+app.listen(APP_PORT, () => console.log(`App started on the port ${APP_PORT}`));
