@@ -74,7 +74,7 @@ const updateUser = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email }).select('-password');
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       throw new UnauthorizedError('Неправильная почта или пароль');
