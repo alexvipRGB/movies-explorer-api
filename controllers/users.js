@@ -76,6 +76,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password');
 
+
     if (!user || !bcrypt.compareSync(password, user.password)) {
       throw new UnauthorizedError('Неправильная почта или пароль');
     }
@@ -89,6 +90,7 @@ const login = async (req, res, next) => {
       httpOnly: true,
       sameSite: true,
     });
+    delete user.password;
     res.send(user.toJSON());
   } catch (err) {
     next(err);
