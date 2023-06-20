@@ -4,9 +4,7 @@ const MONGO_OPTIONS = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-const requestLogFilename = 'request.log';
-const errorLogFilename = 'error.log';
 
 module.exports = {
-  APP_PORT, MONGO_OPTIONS, MONGO_DB, requestLogFilename, errorLogFilename,
+  APP_PORT, MONGO_OPTIONS, MONGO_DB,
 };
