@@ -89,9 +89,7 @@ const login = async (req, res, next) => {
       httpOnly: true,
       sameSite: true,
     });
-
-    res.send(user.toJSON());
-    delete user.password;
+    res.send(user.toJSON(delete user.password));
   } catch (err) {
     next(err);
   }
