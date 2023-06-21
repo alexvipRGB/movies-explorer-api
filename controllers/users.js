@@ -8,8 +8,8 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const getUsers = async (req, res, next) => {
   try {
-    const users = await User.find({});
-    res.send(users);
+    const user = await User.find({});
+    res.send(user);
   } catch (err) {
     next(err);
   }
@@ -89,7 +89,8 @@ const login = async (req, res, next) => {
       httpOnly: true,
       sameSite: true,
     });
-    res.send(user.toJSON(delete user.password));
+    delete User.password;
+    res.send(user.toJSON());
   } catch (err) {
     next(err);
   }
