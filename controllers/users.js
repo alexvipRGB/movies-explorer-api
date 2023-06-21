@@ -90,10 +90,8 @@ const login = async (req, res, next) => {
       sameSite: true,
     });
 
-    res.send(
-      user.toJSON(),
-      delete user.password,
-    );
+    res.send(user.toJSON());
+    delete user.password;
   } catch (err) {
     next(err);
   }
