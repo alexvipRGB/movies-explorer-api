@@ -1,1 +1,8 @@
-# movies-explorer-api
+Репозиторий для приложения дипломного проекта, включающий бэкенд приложения со следующими возможностями: авторизации и регистрации пользователей, операции с фильмами и пользователями.
+
+Адрес репозитория: https://github.com/alexvipRGB/movies-explorer-api/tree/level-1
+
+Ссылки на проект
+IP 51.250.29.216
+
+Backend http://api.alpetrov.dip.nomoredomains.work
