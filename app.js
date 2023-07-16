@@ -36,7 +36,6 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(requestLogger);
-
 app.use(bodyParser.json());
 app.use(router);
 app.use(errorLogger);
