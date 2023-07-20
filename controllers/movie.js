@@ -70,7 +70,7 @@ const deleteMovies = async (req, res, next) => {
       throw new NotFoundError('Передан неверный айди фильма, поэтому не получилось удалить.');
     }
 
-    res.send({ message: 'Фильм успешно удален' });
+    res.send({ movies });
   } catch (err) {
     next(err);
   }
